@@ -12,7 +12,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class MessageCreator {
-    public void createMessage() throws JsonProcessingException {
+    public Object createMessage() throws JsonProcessingException {
         Message newMessage = new Message();
         MessageHeader newHeader = new MessageHeader();
         MessageBody newBody = new MessageBody();
@@ -35,5 +35,6 @@ public class MessageCreator {
         newMessage.setMessageHeader(newHeader);
         ObjectMapper org = new ObjectMapper();
         System.out.println(org.writerWithDefaultPrettyPrinter().writeValueAsString(newMessage));
+        return org.writerWithDefaultPrettyPrinter().writeValueAsString(newMessage);
     }
 }
