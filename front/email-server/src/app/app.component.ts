@@ -9,23 +9,26 @@ import { FileService } from './file.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  [x: string]: any;
   filenames: string[] = [];
   fileStatus = { status: '', requestType: '', percent: 0 };
   
   constructor(private fileService: FileService) {}
-
+  welcome() {   
+    console.log("d5lt welcome")
+    window.open("https://www.javatpoint.com/");  
+    }   
   // define a function to upload files
   onUploadFiles(files: File[]): void {
     const formData = new FormData();
+    console.log("d5lt")
     for (const file of files) { formData.append('files', file, file.name); }
     this.fileService.upload(formData).subscribe(
       event => {
         console.log(event);
         this.resportProgress(event);
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error);
       }
+
     );
   }
 
@@ -35,10 +38,8 @@ export class AppComponent {
       event => {
         console.log(event);
         this.resportProgress(event);
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error);
       }
+      
     );
   }
 
@@ -59,7 +60,7 @@ export class AppComponent {
           for (const filename of httpEvent.body) {
             this.filenames.unshift(filename);
           }
-        } else {
+        } else { //value of request if blob or binary
           saveAs(new File([httpEvent.body!], httpEvent.headers.get('File-Name')!, 
                   {type: `${httpEvent.headers.get('Content-Type')};charset=utf-8`}));
           // saveAs(new Blob([httpEvent.body!], 
