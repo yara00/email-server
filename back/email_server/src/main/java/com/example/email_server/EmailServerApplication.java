@@ -1,28 +1,31 @@
 package com.example.email_server;
-import com.example.email_server.facade.*;
-
+import com.example.email_server.filter.*;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import org.json.JSONException;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 @SpringBootApplication
 public class EmailServerApplication {
 
-	public static void main(String[] args) throws JSONException, JsonProcessingException {
+	public static void main(String[] args) {
 		SpringApplication.run(EmailServerApplication.class, args);
+		JSONArray jsonArray = new JSONArray();
+		JSONObject message = new JSONObject();
+		IMailOperations x = new MailOperations();
+		message.put("lol", "loklhio");
 
-		MessageCreator messageCreator = new MessageCreator();
-		messageCreator.createMessage();
+		JSONObject obj = new JSONObject();
+		obj.put("userName", "jojo");
+		obj.put("password", "koko");
+		JSONObject hettt = new JSONObject();
+		hettt.put("messageHeader", obj);
+		jsonArray.add(hettt);
+		ICriteria filter = new CriteriaSender();
+		System.out.println(obj);
+
+
 	}
-
 
 }
