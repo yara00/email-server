@@ -1,6 +1,7 @@
 package com.example.email_server.facade;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class MessageHeader {
@@ -10,7 +11,16 @@ public class MessageHeader {
     List<String> receivers; //to
     String subject;
     int priority;
-    Calendar date;
+    Date date;
+
+    public MessageHeader(String sender, List<String> receivers, String subject, int priority, Date date) {
+        this.sender = sender;
+        this.receivers = receivers;
+        this.subject = subject;
+        this.priority = priority;
+        this.date = date;
+    }
+
     public String getSender() {
         return sender;
     }
@@ -43,11 +53,11 @@ public class MessageHeader {
         this.priority = priority;
     }
 
-    public Calendar getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Calendar date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 }

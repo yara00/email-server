@@ -7,6 +7,12 @@ public class Message {
     MessageBody messageBody;
     MessageAttachment messageAttachment;
 
+    public Message(MessageHeader messageHeader, MessageBody messageBody, MessageAttachment messageAttachment) {
+        this.messageHeader = messageHeader;
+        this.messageBody = messageBody;
+        this.messageAttachment = messageAttachment;
+    }
+
     public MessageHeader getMessageHeader() {
         return messageHeader;
     }
