@@ -1,12 +1,15 @@
 package com.example.email_server.sorting;
 
 import com.example.email_server.facade.Message;
+import org.json.simple.JSONObject;
 
 
 public class SortPriority implements ISort {
-    @Override
-    public int compare(Message a, Message b)
+    public int compare(JSONObject a, JSONObject b)
     {
-        return (a.getMessageHeader().getPriority()) - (b.getMessageHeader().getPriority());
+        System.out.println("A IS"+a+" B IS "+b);
+        JSONObject aa = (JSONObject) a.get("messageHeader");
+        JSONObject bb = (JSONObject) b.get("messageHeader");
+        return aa.get("priority").toString().compareTo(bb.get("priority").toString());
     }
 }

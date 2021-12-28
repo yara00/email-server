@@ -1,19 +1,22 @@
 package com.example.email_server.facade;
 
+import com.fasterxml.jackson.annotation.JsonSetter;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Queue;
 
 public class MessageHeader {
     //instances will contain header information
     //(to, from, subject, etc.) for an email message
     String sender; //from
-    List<String> receivers; //to
+    Queue<String> receivers; //to
     String subject;
     int priority;
-    Date date;
+    String date;
 
-    public MessageHeader(String sender, List<String> receivers, String subject, int priority, Date date) {
+    public MessageHeader(String sender, Queue<String> receivers, String subject, int priority, String date) {
         this.sender = sender;
         this.receivers = receivers;
         this.subject = subject;
@@ -29,11 +32,11 @@ public class MessageHeader {
         this.sender = sender;
     }
 
-    public List<String> getReceivers() {
+    public Queue<String> getReceivers() {
         return receivers;
     }
 
-    public void setReceivers(List<String> receivers) {
+    public void setReceivers(Queue<String> receivers) {
         this.receivers = receivers;
     }
 
@@ -53,11 +56,11 @@ public class MessageHeader {
         this.priority = priority;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 }
