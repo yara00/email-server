@@ -34,7 +34,7 @@ public class SortDate implements ISort{
             e.printStackTrace();
         }
 
-        return fdate1.compareTo(fdate2);
+        return fdate2.compareTo(fdate1);
     }
 
 }

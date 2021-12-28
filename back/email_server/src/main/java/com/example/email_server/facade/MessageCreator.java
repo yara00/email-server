@@ -10,7 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class MessageCreator {
-    public Object createMessage(String sender, Queue<String> receivers, String subject, int priority,
+    public Object createMessage(String sender, String receivers, String subject, int priority,
                                 String body, List<String> attachments) throws JsonProcessingException {
         Date currDate = new Date();
         String date = currDate.toString();

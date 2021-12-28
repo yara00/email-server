@@ -1,6 +1,7 @@
 package com.example.email_server.controllers;
 import com.example.email_server.Folder;
 import com.example.email_server.IFolder;
+import com.example.email_server.sorting.Sorter;
 import org.json.simple.JSONArray;
 import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.*;
@@ -44,5 +45,9 @@ public class FolderController {
         IFolder folder = new Folder(userName, fileName);
        return folder.loadMessages(page);
     }
-
+    @GetMapping("/load/priority")
+    JSONArray priority(@RequestParam("username") String userName) throws IOException, ParseException {
+        Sorter sorter = new Sorter();
+        return sorter.sort(userName, "Inbox", "priority");
+    }
 }

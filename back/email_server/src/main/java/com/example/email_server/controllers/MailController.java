@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 
 @RestController
@@ -47,7 +46,7 @@ public class MailController {
         return true;
     }
     @PostMapping("/move")
-    void move(@RequestParam("userName") String userName,
+    void move(@RequestParam("username") String userName,
               @RequestParam("fromFile") String fromFile,
               @RequestParam("toFile") String toFile,
               @RequestBody JSONObject messageArr) throws ParseException, IOException {
@@ -62,7 +61,7 @@ public class MailController {
         }
     }
     @DeleteMapping("/delete")
-    void delete(@RequestParam("userName") String userName,
+    void delete(@RequestParam("username") String userName,
                 @RequestParam("fileName") String fileName,
                 @RequestBody JSONObject messagesArr) throws ParseException, IOException {
         JSONParser parser = new JSONParser();

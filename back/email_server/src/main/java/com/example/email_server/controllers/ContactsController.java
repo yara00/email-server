@@ -10,28 +10,32 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/contact")
 public class ContactsController {
     @PostMapping("/add")
-    boolean add(@RequestParam("userName") String userName,
-                @RequestBody JSONObject newContact) throws IOException, ParseException {
-        IContact contact = new Contact(userName);
+    boolean add(@RequestBody JSONObject newContact,
+                @RequestParam("username") String username) throws IOException, ParseException {
+        System.out.println("user"+username);
+        System.out.println("d5alt"+newContact);
+        IContact contact = new Contact(username);
         return contact.add(newContact);
     }
 /*    @PostMapping("/edit")
-    boolean edit(@RequestParam("userName") String userName,
+    boolean edit(@RequestParam("username") String userName,
                 @RequestBody JSONObject contacts) throws IOException, ParseException {
         IContact contact = new Contact(userName);
         return contact.edit(newContact);
     }*/
     @DeleteMapping("/delete")
-     void delete(@RequestParam("userName") String userName,
+     void delete(@RequestParam("username") String userName,
                  @RequestBody JSONObject contactToDelete) throws IOException, ParseException {
         IContact contact = new Contact(userName);
         contact.delete(contactToDelete);
     }
     @GetMapping("/load")
-    JSONArray load(@RequestParam("userName") String userName) throws IOException, ParseException {
+    JSONArray load(@RequestParam("username") String userName) throws IOException, ParseException {
+        System.out.println("user is"+userName);
         IContact contact = new Contact(userName);
         return contact.loadContacts();
     }

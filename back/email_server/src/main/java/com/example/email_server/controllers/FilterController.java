@@ -24,19 +24,19 @@ import java.util.Date;
 @RequestMapping("/filter")
 public class FilterController {
     @GetMapping("/search")
-    JSONArray search(@RequestParam("userName") String userName,
+    JSONArray search(@RequestParam("username") String userName,
                      @RequestParam("key") String key) throws ParseException, IOException {
         ICriteria criteria = new CriteriaAll();
         return searchAllFiles(userName,key,  criteria);
     }
     @GetMapping("/sender")
-    JSONArray filterBySender(@RequestParam("userName") String userName,
+    JSONArray filterBySender(@RequestParam("username") String userName,
                              @RequestParam("key") String key) throws IOException, ParseException {
         ICriteria criteria = new CriteriaSender();
         return searchAllFiles(userName,key,  criteria);
     }
     @GetMapping("/subject")
-    JSONArray filterBySubject(@RequestParam("userName") String userName,
+    JSONArray filterBySubject(@RequestParam("username") String userName,
                              @RequestParam("key") String key) throws IOException, ParseException {
         ICriteria criteria = new CriteriaSubject();
         return searchAllFiles(userName,key,  criteria);
@@ -53,7 +53,7 @@ public class FilterController {
     }
 
     public JSONArray searchAllFiles(String userName, String key, ICriteria criteria) throws IOException, ParseException {
-        File folder = new File("C:\\Users\\maria\\Desktop\\users\\" + userName);
+        File folder = new File("C:\\Users\\Dell\\Desktop\\users\\" + userName);
         File[] listOfFiles = folder.listFiles();
         JSONArray results = new JSONArray();
         for(File file : listOfFiles){

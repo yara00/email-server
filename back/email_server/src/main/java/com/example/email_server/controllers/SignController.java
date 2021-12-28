@@ -26,9 +26,10 @@ public class SignController {
         }
         return false;
     }
-    @GetMapping("/signin")
-    JSONArray signIn(@RequestParam("userName") String userName,
+    @PostMapping("/signin")
+    JSONArray signIn(@RequestParam("username") String userName,
                      @RequestParam("password") String password) throws IOException, ParseException {
+        System.out.println("ana hena");
         ISignIn user = new SignInProxy();
         return user.signIn(userName, password);
     }

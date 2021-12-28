@@ -11,12 +11,12 @@ public class MessageHeader {
     //instances will contain header information
     //(to, from, subject, etc.) for an email message
     String sender; //from
-    Queue<String> receivers; //to
+    String receivers; //to
     String subject;
     int priority;
     String date;
 
-    public MessageHeader(String sender, Queue<String> receivers, String subject, int priority, String date) {
+    public MessageHeader(String sender, String receivers, String subject, int priority, String date) {
         this.sender = sender;
         this.receivers = receivers;
         this.subject = subject;
@@ -32,11 +32,11 @@ public class MessageHeader {
         this.sender = sender;
     }
 
-    public Queue<String> getReceivers() {
+    public String getReceivers() {
         return receivers;
     }
 
-    public void setReceivers(Queue<String> receivers) {
+    public void setReceivers(String receivers) {
         this.receivers = receivers;
     }
 

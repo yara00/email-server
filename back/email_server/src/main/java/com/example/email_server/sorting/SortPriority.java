@@ -10,6 +10,6 @@ public class SortPriority implements ISort {
         System.out.println("A IS"+a+" B IS "+b);
         JSONObject aa = (JSONObject) a.get("messageHeader");
         JSONObject bb = (JSONObject) b.get("messageHeader");
-        return aa.get("priority").toString().compareTo(bb.get("priority").toString());
+        return bb.get("priority").toString().compareTo(aa.get("priority").toString());
     }
 }
