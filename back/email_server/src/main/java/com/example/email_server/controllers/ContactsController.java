@@ -4,6 +4,7 @@ import com.example.email_server.contacts.Contact;
 import com.example.email_server.contacts.IContact;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,12 +20,16 @@ public class ContactsController {
         IContact contact = new Contact(userName);
         return contact.add(newContact);
     }
-/*    @PostMapping("/edit")
-    boolean edit(@RequestParam("userName") String userName,
-                @RequestBody JSONObject contacts) throws IOException, ParseException {
-        IContact contact = new Contact(userName);
-        return contact.edit(newContact);
-    }*/
+    @PostMapping("/edit")
+    boolean edit(@RequestBody JSONArray contacts) throws IOException, ParseException {
+        JSONParser parser = new JSONParser();
+        JSONArray obj = (JSONArray)parser.parse(contacts.toString());
+        JSONObject prev = (JSONObject)obj.get(1);
+        JSONObject curr = (JSONObject) obj.get(0);
+        IContact contact = new Contact(prev.get("name").toString());
+        return contact.edit(prev, curr);
+    }
+
     @DeleteMapping("/delete")
      void delete(@RequestParam("userName") String userName,
                  @RequestBody JSONObject contactToDelete) throws IOException, ParseException {
@@ -36,5 +41,6 @@ public class ContactsController {
         IContact contact = new Contact(userName);
         return contact.loadContacts();
     }
+
 
 }

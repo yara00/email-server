@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+    <title>Mail</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+    <body>
+      <div class="container">
+        <div class="flex flex1">
+          <div class="flex">
+              <button class="new-mail"><a href="/login">Switch User</a></button>
+              <button class="new-mail" (click)="newMail()"><i class="fas fa-plus"></i> New Mail</button>
+              <h2><i class="fas fa-folder"></i> Folders</h2>
+              <button (click)="loading('Inbox', 0)"><i class="fas fa-inbox"></i> Inbox</button>
+              <button (click)="loading('Sent', 0)"><i class="far fa-paper-plane"></i> Sent</button>
+              <button (click)="loading('Draft', 0)"><i class="fas fa-archive"></i> Draft</button>
+              <button (click)="loading('Trash', 0)"><i class="fas fa-trash"></i> Trash</button>
+              <button (click)="openFolder()"><i class="fas fa-plus"></i> Add Folder</button>
+              <button (click)="showFolders()"><i class="fas fa-folder-open"></i> Your Folders</button>
+          </div>
+          <div class="flex">
+              <h2><i class="fas fa-user-circle"></i> Contacts</h2>
+              <button><a href="/contact"><i class="fas fa-users"></i> Your Contacts</a></button>
+          </div>
+        </div>
+  
+        <div class="show">
+          <div class="search">
+              <button class="search-btn" (click) ="search(0)"><i class="fas fa-search"></i></button>
+              <input type="search" placeholder="Search.." class="search-box" [(ngModel)]="searchText">
+            </div>
+            <div class="special-flex">
+              <div class="dropdown">
+                <button>Filter<i class="fas fa-chevron-down" style="padding-left: 20px;"></i></button>
+                <div class="dropdown-content">
+                  <button (click)="filter('subject')">Subject</button>
+                  <button (click)="filter('sender')">Sender</button>
+                </div>
+            </div>
+            <div class="dropdown">
+            <button>Sort <i class="fas fa-chevron-down" style="padding-left: 20px;"></i></button>
+            <div class="dropdown-content">
+              <button (click)="sort('date',0)">Date</button>
+              <button (click)="sort('sender',0)">Sender</button>
+              <button (click)="sort('receivers',0)">Receivers</button>
+              <button (click)="sort('importance',0)">Importance</button>
+              <button (click)="sort('subject',0)">Subject</button>
+              <button (click)="sort('body',0)">Body</button>
+              <button (click)="sort('attachment',0)">Attachments</button>
+            </div>
+          </div>
+          <button (click)="bulkDelete()"><i class="fas fa-trash-alt"></i> Delete</button>
+
+        </div>
+        <div id="emails">
+        
+        </div>
+        <div>
+          <mat-paginator [length]="length"
+               [pageSize]="pageSize"
+               (page) = getPageIndex($event)
+               [hidePageSize] ="true"
+               aria-label="Select page"> </mat-paginator>
+        </div>
+      </div>
+      
+      <div id="compose">
+        <form class="compose">
+          <div class="controllers">
+            <button (click)="draft()"><i class="fas fa-file"></i> Draft</button>
+            <button (click)="discard()"><i class="fas fa-trash-alt"></i> Discard</button>
+            <button (click)="sendCompose()"><i class="fas fa-paper-plane"></i> Send</button>
+          </div>
+          <label class="to">To:</label>
+          <input type="email" name="to" placeholder="Enter an email" [(ngModel)]="to">
+          <hr>
+          <p id="error">Priority</p>
+          <label class="subject">Priority:</label>
+          <input type= "number" name="subject" placeholder="Enter Priority" [(ngModel)]="importance" max="5" min="1">
+          <hr>
+          <hr>
+          <p id="error">Enter an email to send to</p>
+          <label class="subject">Subject:</label>
+          <input type="text" name="subject" placeholder="Enter a subject" [(ngModel)]="subject">
+          <hr>
+          <hr>
+          <div id="attach">Attachments</div>
+          <textarea id="email-text" placeholder="Enter your text here" name="emailText" [(ngModel)]="emailText"></textarea>
+        </form>
+      <form enctype="multipart/form-data">
+        <fieldset>
+          <div class="form-group">
+            <div>
+              <input type="file" (change)="newApp.onUploadFiles($any($event.target).files)" name="files" multiple class="form-control" />
+            </div>
+          </div>
+        </fieldset>
+      </form>
+      </div>
+    </div>
+
+    <div id="open-mail">
+      <form class="compose">
+        <hr>
+        <label for="from">From:</label>
+        <input type="email" name="from" readonly id="from-open">
+        <hr>
+        <label class="to">To:</label>
+        <input type="email" name="to" readonly id="to-open">
+        <hr>
+        <p id="error">Enter an email to send to</p>
+        <label class="subject">Subject:</label>
+        <input type="text" name="subject" readonly id="subject-open">
+        <hr>
+        <label for="date">Date:</label>
+        <input type="text" name="from" readonly id="date">
+        <hr>
+        <label for="importance">Priority:</label>
+        <input type="text" name="from" readonly id="importance">
+        <hr>
+        <div id="attach">Attachments</div>
+        <textarea id="email-text" name="emailText" readonly id="text-open"></textarea>
+        <div *ngIf="this.attachDown?.length > 0" class="js-upload-finished">
+          <div *ngFor="let filename of this.attachDown" class="list-group">
+            <a (click)="newApp.onDownloadFile(filename)" class="list-group-item list-group-item-success" style="cursor: pointer;">
+              {{ filename }}            
+              <a class="alert-success float-right">Download</a>
+            </a><br>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div>
+      <form class="dialog" id="folder">
+        <p>Folder Name</p>
+        <input type="text" id="add-folder" name="add-folder" [(ngModel)]="name" placeholder="Enter a Folder Name"> 
+        <p id="folder-error">Enter a Folder Name</p>
+        <button (click)="addFolder()">Add</button>
+        <button (click)="closeFolder()">Cancel</button>
+      </form>
+
+      <form class="dialog" id="contact">
+        <p>Contact Name</p>
+        <input type="text" id="add-contact" name="add-contact" [(ngModel)]="contact" placeholder="Enter a Contact Name">
+        <p id="contact-error">Enter a Contact Name</p>
+        <input type="email" id="add-email-contact" name="add-email-contact" [(ngModel)]="contact_email" placeholder="Enter a Contact Email">
+        <p id="contact-email-error">Enter a valid Contact Email</p>
+        <button (click)="addContact()">Add</button>
+        <button (click)="closeContact()">Cancel</button>
+      </form>
+
+      <form class="dialog" id="your-folders" style="width: 400px; height: 300px">
+        <h2>Your Folders</h2>
+        <div id="edit" style="display: none">
+          <input type="text" [(ngModel)]="EditName" id="editInput"  name="EditName"> 
+          <p id="folderError">Enter a valid Folder Name</p>
+          <button id="editButton" (click)="editHelper()">Edit</button>
+        </div>
+
+        <div id="control-folder">
+          <button (click)="closeYFolders()">Close</button>
+        </div>
+      </form>
+
+      <form class="dialog" id="filter" style="height: 300px">
+        <p id="filter-title"></p>
+        <input type="text" id="filter-name" name="filter-name" [(ngModel)]="filterName">
+        <p class="error" id="filter-error">Enter a Name</p>
+        <p>Folder name</p>
+        <input type="text" id="filter-folder" name="filter-folder" [(ngModel)]="filterFolder">
+        <p class="error" id="filter-folder-error">Enter a valid Folder Name</p>
+        <button (click)="addFilter()">Add</button>
+        <button (click)="closeFilter()">Cancel</button>
+      </form>
+
+    </div>
+    
+  </body>
+</html>

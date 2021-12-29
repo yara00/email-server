@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Sign Up</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="signup-box">
+            <h1>Sign Up</h1>
+            <form id="sub">
+                <p class="half-right">First Name</p>
+                <p class="half">Last Name</p>
+
+                <input 
+                    type="text" 
+                    placeholder="First Name" 
+                    value="true" 
+                    name="firstName" 
+                    [(ngModel)]="firstName"
+                    class="half-right"
+                >
+
+                <input 
+                    type="text" 
+                    placeholder="Last Name" 
+                    value="true" 
+                    name="lastName" 
+                    [(ngModel)]="lastName"
+                    class="half"
+                >
+
+                <p>Birthday</p>
+                <input 
+                    type="date" 
+                    name="birthday" 
+                    value="true"
+                    [(ngModel)]="birthday"
+                >
+
+                <p>Username</p>
+                <input 
+                    type="text" 
+                    placeholder="Enter Username" 
+                    value="true" 
+                    name="username" 
+                    [(ngModel)]="username"
+                >
+
+                <p>Email</p>
+                <input 
+                    type="email" 
+                    placeholder="Enter Email" 
+                    value="true" 
+                    name="email" 
+                    [(ngModel)]="email"
+                >
+
+                <p>Password</p>
+                <input 
+                    type="password" 
+                    placeholder="Set Password" 
+                    minlength="8" 
+                    value="true" 
+                    name="password" 
+                    [(ngModel)]="password"
+                >  
+
+                <p id="error" style="color:red"></p>
+                <button (click)="signup()">Sign Up</button>
+                <br>
+                <a href="/login">Already have account ?</a>
+            </form>
+        </div>
+    </body>
+</html>

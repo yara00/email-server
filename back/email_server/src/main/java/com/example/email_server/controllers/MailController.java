@@ -26,8 +26,8 @@ public class MailController {
                  @RequestParam("priority") int priority,
                  @RequestParam("body") String body,
                  @RequestParam("attachment") String[] attachment) throws IOException, ParseException {
-        receivers = "marioma";
-        System.out.println("disgggggggggggggggggggggggggggggnfbue");
+       // receivers = "marioma";
+        //System.out.println("disgggggggggggggggggggggggggggggnfbue");
         System.out.println(Arrays.asList(attachment) +"here");
         UsersDatabase users = UsersDatabase.getInstance();
         String [] yourArray = receivers.split(",");
@@ -47,7 +47,7 @@ public class MailController {
             a.add(s);
         }
         System.out.println("A IS "+a);
-        JSONObject message = (JSONObject) messageCreator.createMessage("marioma", "marioma", subject, priority, body ,a);
+        JSONObject message = (JSONObject) messageCreator.createMessage(sender, receivers, subject, priority, body ,a);
         System.out.println("me is"+message);
         IMail mail = new Mail();
         mail.add("marioma","Sent", message);
@@ -55,6 +55,24 @@ public class MailController {
             mail.add(queue.remove(), "Inbox", message);
         return true;
     }
+
+    @PostMapping("/draft")
+    void draft(@RequestParam("subject") String subject,
+               @RequestParam("sender") String sender,
+               @RequestParam("receivers") String receivers,
+               @RequestParam("priority") int priority,
+               @RequestParam("body") String body,
+               @RequestParam("attachment") String[] attachment) throws IOException, ParseException {
+        MessageCreator messageCreator = new MessageCreator();
+        List<String> a = new ArrayList<>();
+        for (String s : attachment) {
+            a.add(s);
+        }
+        JSONObject message = messageCreator.createMessage(sender, receivers, subject, priority, body ,a);
+        IMail mail = new Mail();
+        mail.add(sender,"Draft", message);
+    }
+
     @PostMapping("/move")
     void move(@RequestParam("userName") String userName,
               @RequestParam("fromFile") String fromFile,

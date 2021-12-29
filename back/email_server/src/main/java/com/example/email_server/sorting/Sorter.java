@@ -11,12 +11,12 @@ import java.io.IOException;
 import java.util.Collections;
 
 public class Sorter {
-    public JSONArray sort(String userName, String fileName, String criteria) throws IOException, ParseException {
+    public JSONObject sort(String userName, String fileName, String criteria, int page) throws IOException, ParseException {
         String filePath = "C:\\Users\\Dell\\Desktop\\users" + "\\" + userName + "\\" + fileName + ".json";
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = (JSONObject) parser.parse(new FileReader(filePath));
         System.out.println("ss"+jsonObject);
-       // JSONArray msgArr = (JSONArray) jsonObject.get("Inbox");
+        // JSONArray msgArr = (JSONArray) jsonObject.get("Inbox");
         JSONArray msgArr = new JSONArray();
         ISort sorted = null;
         System.out.println(criteria);
@@ -45,9 +45,17 @@ public class Sorter {
             sorted = new SortName();
         }
         System.out.println("msg is"+msgArr);
-
         Collections.sort(msgArr, sorted);
         JSONArray arr = msgArr;
-        return arr;
+        JSONArray messagesToSent = new JSONArray();
+        int start = (page * 10);
+        int end = start + 10;
+        for(int i = start; i < end && i < arr.size(); i++){
+            messagesToSent.add(arr.get(i));
+        }
+        JSONObject object  = new JSONObject();
+        object.put("messagesNo", arr.size());
+        object.put("mails",messagesToSent);
+        return object;
     }
 }

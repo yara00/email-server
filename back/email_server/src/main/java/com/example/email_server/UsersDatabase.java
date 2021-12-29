@@ -9,7 +9,7 @@ import java.io.*;
 
 public class UsersDatabase {
     private static UsersDatabase instance = null;
-    private static String path = "C:\\Users\\maria\\Desktop\\users\\Users.json";
+    private static String path = "C:\\Users\\Dell\\Desktop\\users\\Users.json";
     private static JSONArray usersList = new JSONArray();
 
     private UsersDatabase() {

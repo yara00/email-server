@@ -44,7 +44,7 @@ public class FilterController {
                              @RequestParam("key") String key) throws IOException, ParseException {
         ICriteria criteria = new CriteriaSender();
         IFolder  folder = new Folder(userName, fileName);
-        String path = "C:\\Users\\maria\\Desktop\\users\\" + userName+ "\\" + fileName + ".json";
+        String path = "C:\\Users\\Dell\\Desktop\\users\\" + userName+ "\\" + fileName + ".json";
         if(!folder.verify()) return false;
         folder.create();
         saveFilteredMessages(userName, fileName,  searchAllFiles(userName,key,criteria), path);
@@ -56,7 +56,7 @@ public class FilterController {
                              @RequestParam("key") String key) throws IOException, ParseException {
         ICriteria criteria = new CriteriaSubject();
         IFolder  folder = new Folder(userName, fileName);
-        String path = "C:\\Users\\maria\\Desktop\\users\\" + userName+ "\\" + fileName + ".json";
+        String path = "C:\\Users\\Dell\\Desktop\\users\\" + userName+ "\\" + fileName + ".json";
         if(!folder.verify()) return false;
         folder.create();
         saveFilteredMessages(userName, fileName,  searchAllFiles(userName,key,criteria), path);
@@ -87,13 +87,13 @@ public class FilterController {
     }
 
     public JSONArray searchAllFiles(String userName, String key, ICriteria criteria) throws IOException, ParseException {
-        File folder = new File("C:\\Users\\maria\\Desktop\\users\\" + userName);
+        File folder = new File("C:\\Users\\Dell\\Desktop\\users\\" + userName);
         File[] listOfFiles = folder.listFiles();
         JSONArray results = new JSONArray();
         for(File file : listOfFiles){
             JSONParser parser = new JSONParser();
             String fileName = removeFileExtension(file.getName(), false);
-            if(fileName.equals("ExtraFiles")) continue;
+            if(fileName.equals("ExtraFiles")|| fileName.equals("Contacts") ) continue;
             JSONObject object = (JSONObject) parser.parse(new FileReader(String.valueOf(file)));
             JSONArray arr = (JSONArray) object.get(fileName);
             JSONArray fileArr =  criteria.meetCriteria(arr, key);

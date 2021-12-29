@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Log In</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="login-box">
+            <h1>Log In</h1>
+            <form id="sub">
+                <p>Username</p>
+                <input type="username" placeholder="Enter Username" value="true" name="username"[(ngModel)]="username">
+                <p>Password</p>
+                <input type="password" placeholder="Enter Password" value="true" name="password" [(ngModel)]="password">
+                <p style="color: red" id="error"></p>
+                <button (click)="login()" id="rout-button">Login</button>
+                <br>
+                <a id="link">Forgot your Password</a>
+                <br>
+                <a href="/signup">Sign Up</a>
+            </form>
+        </div>
+    </body>
+</html>

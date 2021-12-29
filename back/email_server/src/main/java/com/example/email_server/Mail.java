@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class Mail implements IMail {
 
-    private String path = "C:\\Users\\maria\\Desktop\\users";
+    private String path = "C:\\Users\\Dell\\Desktop\\users";
     @Override
     public void add(String userName,String fileName, JSONObject message) throws IOException, ParseException {
 

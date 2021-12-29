@@ -26,7 +26,7 @@ public class Folder implements IFolder {
     private String[] forbiddenFileNames = {"Inbox", "Contacts", "Draft", "Trash", "ExtraFiles","Sent"};
     private String folderName = "";
     private String userName = "";
-    private String path = "C:\\Users\\maria\\Desktop\\users\\";
+    private String path = "C:\\Users\\Dell\\Desktop\\users\\";
     private JSONArray extraFiles;
 
     public int getMessagesNo() {
@@ -37,12 +37,13 @@ public class Folder implements IFolder {
 
     @Override
     public boolean create(){
-        if(!verify()) return false;
+        //if(!verify()) return false;
         for(Object obj : extraFiles){
             JSONObject file = (JSONObject) obj;
             System.out.print(extraFiles);
             if(file.get("fileName").equals(this.folderName))
             {
+                System.out.print(extraFiles);
                 return false;
             }
         }
@@ -105,8 +106,7 @@ public class Folder implements IFolder {
     }
     public boolean verify(){
         for(String name : this.forbiddenFileNames){
-            if(this.folderName.equalsIgnoreCase(name));
-            return false;
+            if(this.folderName.equalsIgnoreCase(name)) return false;
         }
         return true;
     }
@@ -130,7 +130,4 @@ public class Folder implements IFolder {
             e.printStackTrace();
         }
     }
-
-
-
 }

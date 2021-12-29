@@ -1,0 +1,89 @@
+*{
+    font-family: 'Cairo', sans-serif;
+    color: black;
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    background: url('../background.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 700px;
+    width: 100%;
+    position: absolute;
+}
+
+.signup-box{
+    width: 640px;
+    height:400px;
+    background: transparent;
+    color: black;
+    margin: auto;
+    box-sizing: border-box;
+    padding: 40px 30px;
+}
+
+h1{
+    margin: 0;
+    padding: 0 0 20px;
+    text-align: center;
+    font-size: 22px;
+}
+
+.signup-box p{
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+}
+
+.signup-box input{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.signup-box input[type="text"], input[type="password"], input[type="email"], input[type="date"]{
+    border: none;
+    border-bottom: 1px solid #fff;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: #fff;
+    font-size: 16px;
+}
+
+.signup-box button{
+    border: none;
+    outline: none;
+    height: 40px;
+    background: #fb2525;
+    color: #fff;
+    font-size: 18px;
+    border-radius: 20px;
+    width: 250px;
+    margin-left: 30%;
+}
+
+.signup-box button:hover{
+    cursor: pointer;
+    background: #ffc107;
+    color: #000;
+}
+
+.signup-box a{
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 20px;
+    color: black;
+}
+
+.half{
+    display:inline-block !important; 
+    width: 45% !important; 
+}
+
+.half-right{
+    display:inline-block !important; 
+    width: 45% !important; 
+    margin-right: 10% !important;
+}

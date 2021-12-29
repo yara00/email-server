@@ -1,0 +1,248 @@
+body{
+    font-family: 'Cairo', sans-serif;
+    color: black;
+    background: url(src/app/background.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+    padding: 0px;
+    margin: 0px;
+}
+.new-mail{
+    padding-left: 10px;
+    width: 160px;
+    height: 50px;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+}
+
+.search-btn{
+    text-align: center;
+    padding: 0px;
+    width: 50px;
+    height: 40px;
+}
+
+button{
+    background-color: transparent;
+    width: 160px;
+    height: 50px;
+    border: 0px;
+    font-size: 15px;
+    text-align: start;
+    padding-left: 10px;
+    cursor: pointer;
+}
+
+h2{
+    padding: 0px;
+    margin: 0px;
+}
+
+button:hover{
+    background-color: #f1f1f1;
+}
+
+.flex{
+    display: inline-flex;
+    flex-direction: column;
+    background-color: transparent; 
+    width: 200px;
+    flex-wrap: wrap;
+    padding-left: 10px;
+}
+
+.show{
+    display: inline-flex;
+    flex-direction: column;
+    padding: 3px;
+    margin: 10px;
+    margin-top: 0px;
+    margin-right: 0px;
+    flex-wrap: wrap;
+    border: 1px solid #ccc;
+    width: 400px;
+}
+
+.search-box{
+    float: left;
+    padding: 6px;
+    border: none;
+    font-size: 17px;
+    border: 1px solid #ccc; 
+    height: 40px;
+    width: 342px;
+}
+
+.special-flex{
+    display: flex;
+    background-color: rgba(255, 255, 255, 0.5);
+    flex-direction: row;
+    align-items: center;
+    justify-content: stretch;
+    justify-items: center;
+}
+.special-flex button{
+    width: calc(392px / 3);
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content button {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+#emails{
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    background-color: rgba(255, 255, 255, 0.25);
+    font-size: 30px;
+    border-top: 1px solid #ccc;
+    height: 480px;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+}
+
+a:hover{
+    text-decoration: none;
+    color: black;
+}
+
+#compose{
+    display: none;
+    flex-direction: column;
+    padding: 20px;
+    margin: 0px;
+    flex-wrap: wrap;
+    width: 500px;
+}
+
+.compose input[type="email"], input[type="text"]{
+    border: none;
+    background: transparent;
+    outline: none;
+    color: black;
+    font-size: 16px;
+    width: 300px;
+}
+
+.compose label{
+    width: 80px;
+    font-weight: bold;
+}
+
+hr{
+    padding: 0px;
+    margin: 0px;
+}
+
+#email-text, #text-open{
+    margin-top: 10px;
+    height: 400px;
+    background-color: transparent;
+    width: 500px;
+    border: 0px;
+}
+
+#attach{
+    width: 500px;
+    padding: 10px;
+    display: none;
+}
+
+#error, #folder-error, #contact-error, #contact-email-error, .error{
+    padding: 0px;
+    margin: 0px;
+    color: red;
+    display: none;
+    margin-left: 5px;
+}
+
+.dialog{
+    width: 300px;
+    height: 250px;
+    background-color: #ccc;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 40%;
+    left: 40%;
+    z-index: 3;
+    display: none;
+    overflow-y: scroll;
+}
+
+.dialog button{
+    width: 100px;
+    margin: 10px;
+    background-color: rgb(54,123,122);
+    text-align: center;
+}
+
+.dialog p{
+    padding: 0px;
+    margin: 10px;
+    font-style: bold;
+}
+
+.dialog button:hover{
+    background-color: rgb(159,196,201);
+}
+
+.dialog input{
+    background-color:rgba(255, 255, 255, 0.25);
+    width: 200px;
+    margin: 10px;
+    border: none;
+}
+
+#open-mail{
+    display: none;
+    margin: 0px;
+    width: 47%;
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    margin-top: 5px;
+}
+
+#open-mail #attach{
+    display: block;
+}
+
+#your-contacts, #your-folders{
+    height: 200px;
+    width: 400px;
+    overflow-y: scroll;
+}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link href="https://use.fontawesome.com/releases/v5.0.4/css/all.css" rel="stylesheet">
+    </head>
+    <body>
+        <div class="container">
+            <div class="control">
+                <h1>Your Contacts</h1>
+                <br>
+                <button><a href="/main"><i class="fas fa-caret-left"></i> Return</a></button> 
+                <button (click)="createContact()"><i class="fas fa-plus"></i> Create Contact</button>
+                <div class="dropdown">
+                    <button>Sort</button>
+                    <div class="dropdown-content">
+                        <button (click)="sorting('name')">Name</button>
+                    </div>
+                </div>
+            </div>
+            <div class="head">
+                <div class="search">
+                    <input type="search" placeholder="Search.." class="search-box" [(ngModel)]="search">
+                    <button class="search-btn" style="width: 50px;" (click)="searching()"><i class="fas fa-search"></i></button>
+                </div>
+                <div id="add"> 
+
+                </div>
+            </div>
+            <div>
+                <form class="add-contact" id="add-contact">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" placeholder="Enter the Name" name="username" value="username" [(ngModel)]="username">
+                    <hr>
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" placeholder="Enter the Email" value="email" name="email" [(ngModel)]="email" >
+                    <hr>
+                    <p id="error">You already has a contact with this information</p>
+                    <br>
+                    <button (click)="save()"><i class="fas fa-save"></i> Save</button>
+                    <br>
+                    <button (click)="cancel()"><i class="fas fa-window-close"></i> Cancel</button>
+                </form>
+            </div>
+        </div>
+        <form class="add-contact" id="edit-contact">
+            <hr>
+            <label for="username">Name</label>
+            <input type="text" name="username" id="username-edit" [(ngModel)]="usernameEdit">
+            <hr>
+            <label class="email">Email</label>
+            <input type="email" name="email" id="email-edit" [(ngModel)]="emailEdit">
+            <hr>
+            <p id="error">Enter a valid Email</p>
+            <button id="add-email-btn" (click)="addEmail()"><i class="fas fa-plus"></i> Add Email</button>
+            <br>
+            <button (click)="saveEditing()"><i class="fas fa-save"></i> Save</button>
+            <br>
+            <button (click)="cancelEditing()"><i class="fas fa-window-close"></i> Cancel</button>
+        </form>
+    </body>
+</html>

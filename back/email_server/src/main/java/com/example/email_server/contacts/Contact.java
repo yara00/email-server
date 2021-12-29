@@ -22,7 +22,7 @@ public class Contact implements IContact {
             e.printStackTrace();
         }
     }
-    private String path = "C:\\Users\\maria\\Desktop\\users\\";
+    private String path = "C:\\Users\\Dell\\Desktop\\users\\";
 
     String userName;
     private JSONArray contacts;

@@ -17,7 +17,7 @@ public class JsonFile {
     private String folderName ="";
 
     public void create(){
-        String path = "C:\\Users\\maria\\Desktop\\users\\" + folderName + "//"+ fileName + ".json";
+        String path = "C:\\Users\\Dell\\Desktop\\users\\" + folderName + "//"+ fileName + ".json";
         JSONObject jsonFile = new JSONObject();
         if(!fileName.equalsIgnoreCase("info")){
             JSONArray jsonArray = new JSONArray();
