@@ -15,8 +15,8 @@ public class EmailServerApplication {
 
 	public static void main(String[] args) throws IOException, ParseException {
 		SpringApplication.run(EmailServerApplication.class, args);
-		Sorter sorter = new Sorter();
-		System.out.println(sorter.sort("marioma","Sent","sender"));
+		//Sorter sorter = new Sorter();
+		//System.out.println(sorter.sort("marioma","Sent","sender"));
 
 
 	}
