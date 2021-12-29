@@ -9,11 +9,12 @@ public class CriteriaSubject implements ICriteria{
         JSONArray subjectCriteria = new JSONArray();
         for(Object obj : mails){
             JSONObject mail = (JSONObject) obj;
-            String subject = mail.get("subject").toString();
-            if(subject.contains(criteriaValue)){
+            JSONObject mailHeader = (JSONObject) mail.get("messageHeader");
+            if(((String)mailHeader.get("subject")).contains(criteriaValue)){
                 subjectCriteria.add(mail);
             }
         }
+
         return subjectCriteria;
     }
 

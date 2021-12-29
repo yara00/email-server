@@ -3,10 +3,15 @@ package com.example.email_server.controllers;
 import com.example.email_server.sorting.Sorter;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -16,7 +21,33 @@ public class SortController {
     public JSONObject sortBody(@RequestParam("userName") String userName,
                                @RequestParam("fileName") String fileName,
                                @RequestParam("criteria") String criteria,
-                               @RequestParam("page") int page) throws IOException, ParseException {
+                               @RequestParam("page") int page) throws IOException, ParseException, java.text.ParseException {
+        if(fileName.equalsIgnoreCase("Trash")) {
+            JSONParser parser = new JSONParser();
+            String filePath = "C:\\Users\\Dell\\Desktop\\users\\" + userName + "\\Trash.json";
+            JSONObject jsonObject = (JSONObject) parser.parse(new FileReader(filePath));
+            JSONArray msg = (JSONArray) jsonObject.get("Trash");
+            Date currDate = new Date();
+            JSONArray keep = new JSONArray();
+            for (Object o : msg) {
+                JSONObject obj = (JSONObject) o;
+                JSONObject aa = (JSONObject) obj.get("messageHeader");
+                String strd1 = (String) aa.get("date");
+                SimpleDateFormat formatter = new SimpleDateFormat("EEE MMM dd HH:mm:ss z yyyy");
+                Date fdate1 = formatter.parse(strd1);
+
+                long diff = currDate.getTime() - fdate1.getTime();
+                diff = diff / (1000 * 60 * 60 * 24);
+                if(diff < 30) {
+                    keep.add(o);
+                }
+            }
+            JSONObject obj = new JSONObject();
+            obj.put("Trash", keep);
+            FileWriter file = new FileWriter(filePath);
+            file.write(obj.toJSONString());
+            file.flush();
+        }
         Sorter sorter = new Sorter();
         return sorter.sort(userName,fileName,criteria, page);
     }

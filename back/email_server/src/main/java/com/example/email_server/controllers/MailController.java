@@ -10,9 +10,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -23,12 +21,14 @@ public class MailController {
     String body, List<String> attachments*/
     @PostMapping("/send")
     boolean send(@RequestParam("subject") String subject,
-              @RequestParam("sender") String sender,
-              @RequestParam("receivers") String receivers,
-              @RequestParam("priority") int priority,
-              @RequestParam("body") String body
-                 ) throws IOException, ParseException {
+                 @RequestParam("sender") String sender,
+                 @RequestParam("receivers") String receivers,
+                 @RequestParam("priority") int priority,
+                 @RequestParam("body") String body,
+                 @RequestParam("attachment") String[] attachment) throws IOException, ParseException {
+        receivers = "marioma";
         System.out.println("disgggggggggggggggggggggggggggggnfbue");
+        System.out.println(Arrays.asList(attachment) +"here");
         UsersDatabase users = UsersDatabase.getInstance();
         String [] yourArray = receivers.split(",");
         Queue<String> checkingQueue = new LinkedList<>(Arrays.asList(yourArray));
@@ -40,9 +40,17 @@ public class MailController {
                 return false;
         }
         MessageCreator messageCreator = new MessageCreator();
-        JSONObject message =(JSONObject) messageCreator.createMessage(sender, receivers, subject, priority, body ,null);
+        System.out.println("Ahhhhhh");
+        System.out.println(sender+receivers+subject+priority+body+Arrays.asList(attachment));
+        List<String> a = new ArrayList<>();
+        for (String s : attachment) {
+            a.add(s);
+        }
+        System.out.println("A IS "+a);
+        JSONObject message = (JSONObject) messageCreator.createMessage("marioma", "marioma", subject, priority, body ,a);
+        System.out.println("me is"+message);
         IMail mail = new Mail();
-        mail.add(sender,"Sent", message);
+        mail.add("marioma","Sent", message);
         while(!queue.isEmpty())
             mail.add(queue.remove(), "Inbox", message);
         return true;
