@@ -17,14 +17,14 @@ import java.nio.file.Path;
 import java.util.Date;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin()
 @RequestMapping("/filter")
 public class FilterController {
 
     @GetMapping("/search")
     JSONObject search(@RequestParam("userName") String userName,
-                     @RequestParam("key") String key,
-                     @RequestParam("page") int page) throws ParseException, IOException {
+                      @RequestParam("key") String key,
+                      @RequestParam("page") int page) throws ParseException, IOException {
         ICriteria criteria = new CriteriaAll();
         JSONArray allMessages = searchAllFiles(userName, key,  criteria);
         JSONArray results = new JSONArray();
@@ -38,10 +38,10 @@ public class FilterController {
         load.put("content", results);
         return load;
     }
-    @GetMapping("/sender")
+    @PostMapping("/sender")
     boolean filterBySender(@RequestParam("userName") String userName,
-                             @RequestParam("fileName") String fileName,
-                             @RequestParam("key") String key) throws IOException, ParseException {
+                           @RequestParam("fileName") String fileName,
+                           @RequestParam("key") String key) throws IOException, ParseException {
         ICriteria criteria = new CriteriaSender();
         IFolder  folder = new Folder(userName, fileName);
         String path = "C:\\Users\\Dell\\Desktop\\users\\" + userName+ "\\" + fileName + ".json";
@@ -50,10 +50,10 @@ public class FilterController {
         saveFilteredMessages(userName, fileName,  searchAllFiles(userName,key,criteria), path);
         return true;
     }
-    @GetMapping("/subject")
+    @PostMapping("/subject")
     boolean filterBySubject(@RequestParam("userName") String userName,
-                             @RequestParam("fileName") String fileName,
-                             @RequestParam("key") String key) throws IOException, ParseException {
+                            @RequestParam("fileName") String fileName,
+                            @RequestParam("key") String key) throws IOException, ParseException {
         ICriteria criteria = new CriteriaSubject();
         IFolder  folder = new Folder(userName, fileName);
         String path = "C:\\Users\\Dell\\Desktop\\users\\" + userName+ "\\" + fileName + ".json";
@@ -66,7 +66,7 @@ public class FilterController {
     private void saveFilteredMessages(String userName, String fileName, JSONArray mails, String path) throws IOException, ParseException {
         JSONParser parser = new JSONParser();
         JSONObject object =(JSONObject) parser.parse(new FileReader(path));
-        JSONArray jsonArray = (JSONArray) object.get("fileName");
+        JSONArray jsonArray = (JSONArray) object.get(fileName);
         for(int i = 0; i < jsonArray.size(); i++){
             mails.add(jsonArray.get(i));
         }
@@ -89,6 +89,7 @@ public class FilterController {
     public JSONArray searchAllFiles(String userName, String key, ICriteria criteria) throws IOException, ParseException {
         File folder = new File("C:\\Users\\Dell\\Desktop\\users\\" + userName);
         File[] listOfFiles = folder.listFiles();
+        System.out.println(listOfFiles);
         JSONArray results = new JSONArray();
         for(File file : listOfFiles){
             JSONParser parser = new JSONParser();
@@ -103,6 +104,4 @@ public class FilterController {
         }
         return results;
     }
-
-
 }

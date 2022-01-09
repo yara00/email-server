@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin()
 @RequestMapping("/sort")
 public class SortController {
     @GetMapping("")
@@ -22,6 +22,7 @@ public class SortController {
                                @RequestParam("fileName") String fileName,
                                @RequestParam("criteria") String criteria,
                                @RequestParam("page") int page) throws IOException, ParseException, java.text.ParseException {
+        System.out.println("criteria is "+ criteria);
         if(fileName.equalsIgnoreCase("Trash")) {
             JSONParser parser = new JSONParser();
             String filePath = "C:\\Users\\Dell\\Desktop\\users\\" + userName + "\\Trash.json";

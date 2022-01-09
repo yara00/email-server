@@ -30,12 +30,8 @@ export class SignUpComponent implements OnInit {
         this.http.get('http://localhost:8080/sign/signup', {
       responseType: 'text',
         params: {
-          firstName: this.firstName,
-          lastName: this.lastName,
-          birthday: this.birthday,
-          username: this.username,
           password: this.password,
-          email: this.email
+          userName: this.email
         },
       observe:'response'
     }).subscribe(response => {

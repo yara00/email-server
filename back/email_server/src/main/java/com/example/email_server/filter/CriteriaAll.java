@@ -23,7 +23,6 @@ public class CriteriaAll implements ICriteria {
                 allCriteria.add(mail);
             }
         }
-        System.out.print("ffffffffffff");
         return allCriteria;
     }
     private boolean searchSubject(JSONObject mailHeader, String criteriaValue){
@@ -37,11 +36,9 @@ public class CriteriaAll implements ICriteria {
         return false;
     }
     private boolean searchReceivers(JSONObject mailHeader,String criteriaValue){
-        JSONArray receivers = (JSONArray) mailHeader.get("receivers");
-        for(Object obj:receivers){
-            String receiver = obj.toString();
-            if(receiver.contains(criteriaValue)) return true;
-        }
+        String receiver = (String) mailHeader.get("receivers");
+        if(receiver.contains(criteriaValue)) return true;
+
         return false;
     }
     private boolean searchDate(JSONObject mailHeader){

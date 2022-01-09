@@ -2,6 +2,7 @@ import { Component, Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import {LogInComponent} from 'src/app/log-in/log-in.component';
 import { Router } from '@angular/router';
+import { FileService } from '../file.service';
 @Component({
   selector: 'app-contact',
   templateUrl: './contact.component.html',
@@ -19,7 +20,7 @@ export class ContactComponent implements OnInit {
   num = 0;
   editName = "";
 
-  login = new  LogInComponent(null, null);
+  login = new  LogInComponent(null, null, null);
 
   usernameEdit = "";
   emailEdit = [];
@@ -28,12 +29,17 @@ export class ContactComponent implements OnInit {
   usernameCarry = "";
   emailCarry = [];
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private fileService: FileService) { }
   
-  newClass = new LogInComponent(this.http, this.router);
+  newClass = new LogInComponent(this.http, this.router, this.fileService);
   
   ngOnInit(): void {
     console.log(this.username, this.email);
+    this.fileService.currentMessage.subscribe(message => (this.username= message));
+    console.log(this.username, "ana hena ya yara")
+    this.username = this.fileService.returnMessage()
+    console.log(this.username, "yaraaa")
+    this.username = "marioma"
     this.loading();
   }
 
@@ -41,7 +47,7 @@ export class ContactComponent implements OnInit {
     this.http.get('http://localhost:8080/contact/load', {
       responseType: 'json',
       params:{
-        userName: this.login.getUser()
+        userName: this.username
       },
       observe:'response'
     }).subscribe(response => {
@@ -73,7 +79,7 @@ export class ContactComponent implements OnInit {
     this.http.post('http://localhost:8080/contact/add',{name : this.username, emails: [this.email, "e"]}, {
       responseType: 'text', 
       params: {
-        userName: this.login.getUser()
+        userName: this.username
       },
       observe: 'response'
     }).subscribe( response => {
@@ -243,7 +249,7 @@ export class ContactComponent implements OnInit {
     document.getElementById('edit-contact').style.display = "none";
     this.http.post('http://localhost:8080/contact/edit',{body : [{edit :  {name: this.editName, emails: this.emailEdit}}, {prev :  {name: this.username, emails: this.email}}]},
     {responseType: 'text',
-      params: {userName: this.login.getUser()},
+      params: {userName: this.username},
     }).subscribe(response => {
       console.log(response)
   })
@@ -274,7 +280,7 @@ export class ContactComponent implements OnInit {
     this.http.get('http://localhost:8080/sort', {
       responseType: 'json',
       params:{
-        userName:this.login.getUser(),
+        userName:this.username,
         fileName: "Contacts",
         criteria: "name",
         page: 0

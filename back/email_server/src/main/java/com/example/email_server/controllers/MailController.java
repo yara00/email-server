@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin()
 @RequestMapping("/mail")
 public class MailController {
     /*
@@ -31,8 +31,9 @@ public class MailController {
         System.out.println(Arrays.asList(attachment) +"here");
         UsersDatabase users = UsersDatabase.getInstance();
         String [] yourArray = receivers.split(",");
+        System.out.println("yourArray is "+ yourArray.length);
         Queue<String> checkingQueue = new LinkedList<>(Arrays.asList(yourArray));
-        Queue<String> queue = new LinkedList<>(Arrays.asList(yourArray));
+        Queue<String> queue = new LinkedList<>();
         while(!checkingQueue.isEmpty()){
             if(users.exists(checkingQueue.peek()))
                 queue.add(checkingQueue.remove());
@@ -50,7 +51,8 @@ public class MailController {
         JSONObject message = (JSONObject) messageCreator.createMessage(sender, receivers, subject, priority, body ,a);
         System.out.println("me is"+message);
         IMail mail = new Mail();
-        mail.add("marioma","Sent", message);
+        mail.add(sender,"Sent", message);
+        System.out.println("q size is "+ queue.size());
         while(!queue.isEmpty())
             mail.add(queue.remove(), "Inbox", message);
         return true;
@@ -92,9 +94,10 @@ public class MailController {
     void delete(@RequestParam("userName") String userName,
                 @RequestParam("fileName") String fileName,
                 @RequestBody JSONObject messagesArr) throws ParseException, IOException {
+        System.out.println("messagesArr is "+ messagesArr);
         JSONParser parser = new JSONParser();
         JSONObject object = (JSONObject) parser.parse(messagesArr.toString());
-        JSONArray messages = (JSONArray) object.get("users");
+        JSONArray messages = (JSONArray) object.get("msgs");
         System.out.println(messages);
         IMail mail = new Mail();
         for(Object obj : messages){

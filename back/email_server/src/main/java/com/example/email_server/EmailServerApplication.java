@@ -1,6 +1,6 @@
 package com.example.email_server;
 import com.example.email_server.filter.*;
-import com.example.email_server.sorting.Sorter;
+//import com.example.email_server.sorting.Sorter;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -20,10 +20,7 @@ public class EmailServerApplication {
 
 	public static void main(String[] args) throws IOException, ParseException, java.text.ParseException {
 		SpringApplication.run(EmailServerApplication.class, args);
-		//Sorter sorter = new Sorter();
-		//System.out.println(sorter.sort("marioma","Sent","sender"));
 
-		//String strd1 = "Wed Nov 25 14:39:36 EET 2021";
 		JSONParser parser = new JSONParser();
 		String filePath = "C:\\Users\\Dell\\Desktop\\users\\marioma\\Trash.json";
 		JSONObject jsonObject = (JSONObject) parser.parse(new FileReader(filePath));

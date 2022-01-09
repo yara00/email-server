@@ -15,7 +15,6 @@ import { AppComponent } from '../app.component';
 export class MainComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router,  private fileService: FileService) { }
   newApp = new AppComponent(this.fileService);
-  login = new  LogInComponent(null, null);
   length = 0;
   pageSize = 10;
   sortFlag = false;
@@ -23,7 +22,8 @@ export class MainComponent implements OnInit {
   attachDown = [""];
   select = [0,0,0,0,0,0,0,0,0,0]
   attr = "";
-  EditName = ""
+  EditName = "";
+  username = "";
   // MatPaginator Output
   pageEvent: PageEvent;
   getPageIndex(event: PageEvent){
@@ -34,8 +34,17 @@ export class MainComponent implements OnInit {
 
   }
   ngOnInit(): void {
+    this.fileService.currentMessage.subscribe(message => (this.username= message));
+    console.log(this.username, "ana hena ya yara")
+    this.username = this.fileService.returnMessage()
+    console.log(this.username, "yaraaa")
+    this.fileService.changeMessage(this.username);
+    
   }
+  init(): void {
+    this.username = this.fileService.returnMessage()
 
+  }
   delete(){
     this.http.delete("", {
 
@@ -67,27 +76,30 @@ export class MainComponent implements OnInit {
   filterName = "";
   filterFolder = "";
   content : any;
-  
+  user: string;
   //Loading Request Donnnnnnnnnnne
   loading(folder: string = "", page: number) {
     this.id = 0;
     this.sortFlag = false;
     this.folderName = folder;
+    this.init();
+    console.log(this.username, "ahen");
+    this.username = this.fileService.returnMessage();
     this.http.get('http://localhost:8080/sort', {
       responseType: 'json',
       params:{
-        userName: this.login.getUser(),
+        userName: this.username,
         fileName: this.folderName,
         criteria:"date",
         page: page
       },
       observe:'response',
     }).subscribe(response => {
-      console.log(response.body);
+      console.log(response.body, "body");
       this.content = response.body;
       this.length = this.content.messagesNo  
       this.showEmails = this.content.mails
-      console.log(this.showEmails)
+      console.log(this.showEmails, "hena show")
       this.show();  
     })
   }
@@ -232,7 +244,7 @@ settingMail(sender: string = "", receivers: string = "", subject: string = "",
   insertAttach() {
     
   }
-  newClass = new LogInComponent(this.http, this.router);
+  newClass = new LogInComponent(this.http, this.router, this.fileService);
   //Request send Doneeeeeeeeeeeeeeeee
   sendCompose() {
     if (this.to === "") {
@@ -244,7 +256,7 @@ settingMail(sender: string = "", receivers: string = "", subject: string = "",
       this.http.post('http://localhost:8080/mail/send',{}, {
       responseType: 'text',
       params: {
-        sender: this.newClass.getUser(),
+        sender: this.username,
         receivers: this.to,
         subject: this.subject,
         body: this.emailText,
@@ -269,7 +281,7 @@ settingMail(sender: string = "", receivers: string = "", subject: string = "",
     if(this.to === "" && this.emailText === "" && this.subject=== "") return;
     this.http.post('http://localhost:8080/mail/draft',{}, {
       params: {
-        sender: this.newClass.getUser(),
+        sender: this.username,
         receivers: this.to,
         subject: this.subject,
         body: this.emailText,
@@ -327,7 +339,7 @@ settingMail(sender: string = "", receivers: string = "", subject: string = "",
     this.http.post('http://localhost:8080/folder/create',{}, {
       responseType: 'text',
       params: {
-        userName: this.login.getUser(),
+        userName: this.username,
         fileName: this.name,
       },
       observe: 'response'
@@ -525,7 +537,7 @@ settingMail(sender: string = "", receivers: string = "", subject: string = "",
     this.http.get('http://localhost:8080/filter/search', {
       responseType: 'json',
       params: {
-        userName : this.login.getUser(),
+        userName : this.username,
         key: this.searchText,
         page: page
       },
@@ -533,17 +545,21 @@ settingMail(sender: string = "", receivers: string = "", subject: string = "",
     }).subscribe(response => {
       this.content = response.body;
       this.length = this.content.messagesNo
-      console.log(this.content)
+      console.log(this.content, 'hena')
+      this.showEmails = this.content.content
+      console.log(this.showEmails)
+      this.show();
     })
-    this.show();
+    
   }
+
 // deleteMailRequst Doneeeeeeeeeeeeeeee,
   delReq(mailsToDelete){
     this.http.delete("http://localhost:8080/mail/delete", {
       body : {msgs: mailsToDelete},
       params :{
         fileName : this.folderName,
-        userName : this.login.getUser()
+        userName : this.username
       }
     }).subscribe()
   }
@@ -554,7 +570,7 @@ settingMail(sender: string = "", receivers: string = "", subject: string = "",
     this.http.get('http://localhost:8080/folder/load', {
       responseType: 'json',
       params:{
-        userName: this.login.getUser(),
+        userName: this.username,
       },
       observe:'response',
     }).subscribe(response => {
@@ -604,7 +620,7 @@ settingMail(sender: string = "", receivers: string = "", subject: string = "",
     this.http.get('http://localhost:8080/sort', {
       responseType: 'json',
       params: {
-        userName: this.newClass.getUser(),
+        userName: this.username,
         fileName: this.folderName,
         criteria: type,
         page:page
@@ -612,7 +628,10 @@ settingMail(sender: string = "", receivers: string = "", subject: string = "",
       observe:'response'
     }).subscribe(response => {
       this.content = response.body;
-      console.log(response.body)
+      this.length = this.content.messagesNo  
+      this.showEmails = this.content.mails
+      console.log(this.showEmails, "hena show")
+      this.show();  
     })
   }
 
@@ -648,7 +667,7 @@ settingMail(sender: string = "", receivers: string = "", subject: string = "",
       this.name = this.filterFolder;
       this.http.post('http://localhost:8080/filter/'+ this.attr,{}, {
         params: {
-          userName: this.login.getUser(),
+          userName: this.username,
           fileName: this.filterFolder,
           key:this.filterName
         },

@@ -28,7 +28,7 @@ public class Sorter {
             msgArr = (JSONArray) jsonObject.get(fileName);
             sorted = new SortSubject();
         }
-        else if(criteria.equalsIgnoreCase("priority")) {
+        else if(criteria.equalsIgnoreCase("importance")) {
             msgArr = (JSONArray) jsonObject.get(fileName);
             sorted = new SortPriority();
         }

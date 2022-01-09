@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.mockito:mockito-inline:{mockitoversion}">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/mockito/mockito-inline/{mockitoversion}/mockito-inline-{mockitoversion}.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/mockito/mockito-inline/{mockitoversion}/mockito-inline-{mockitoversion}-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/mockito/mockito-inline/{mockitoversion}/mockito-inline-{mockitoversion}-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -3,22 +3,27 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { MainComponent } from '../main/main.component';
+import { FileService } from '../file.service';
 
 @Component({
   selector: 'app-log-in',
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.css']
 })
-
 @Injectable()
 export class LogInComponent implements OnInit {
-  username = "";
+  username : string;
   password = "";
   validation = "";
-  constructor(private http: HttpClient, private router: Router) { }
-  
+  user = "";
+
+  constructor(private http: HttpClient, private router: Router, private fileServe: FileService) { }
   getUser():string {
     return this.username
+  }
+  
+  setUser():void {
+  //  this.mainapp.username = this.username
   }
   ngOnInit(): void {
   }
@@ -39,7 +44,7 @@ export class LogInComponent implements OnInit {
       if (this.validation === 'true') {
         this.router.navigateByUrl('/main');
         var main =  new MainComponent(this.http, null, null);
-        main.loading("Inbox", 0);
+        console.log(this.username, "lolo")
       }
       else {
         document.getElementById('error').innerText = 'Invalid Username or Password';
@@ -48,6 +53,8 @@ export class LogInComponent implements OnInit {
   }
 
   login() {
+    console.log(this.username, 'hena')
+    this.fileServe.changeMessage(this.username);
 
     if (this.username === "") {
       document.getElementById('error').innerText = 'Enter a Username';

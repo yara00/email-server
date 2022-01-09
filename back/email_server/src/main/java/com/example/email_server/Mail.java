@@ -27,6 +27,7 @@ public class Mail implements IMail {
         FileWriter  jsonFile = new FileWriter(path);
         jsonFile.write(file.toString());
         jsonFile.flush();
+
     }
 
     @Override

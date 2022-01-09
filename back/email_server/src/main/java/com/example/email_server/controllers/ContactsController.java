@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin()
 @RequestMapping("/contact")
 public class ContactsController {
     @PostMapping("/add")
@@ -21,7 +21,8 @@ public class ContactsController {
         return contact.add(newContact);
     }
     @PostMapping("/edit")
-    boolean edit(@RequestBody JSONArray contacts) throws IOException, ParseException {
+    boolean edit(@RequestBody JSONArray contacts,
+                 @RequestParam ("userName") String userName) throws IOException, ParseException {
         JSONParser parser = new JSONParser();
         JSONArray obj = (JSONArray)parser.parse(contacts.toString());
         JSONObject prev = (JSONObject)obj.get(1);

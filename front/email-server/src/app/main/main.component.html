@@ -123,7 +123,7 @@
         <label for="importance">Priority:</label>
         <input type="text" name="from" readonly id="importance">
         <hr>
-        <div id="attach">Attachments</div>
+        <div id="attach"></div>
         <textarea id="email-text" name="emailText" readonly id="text-open"></textarea>
         <div *ngIf="this.attachDown?.length > 0" class="js-upload-finished">
           <div *ngFor="let filename of this.attachDown" class="list-group">

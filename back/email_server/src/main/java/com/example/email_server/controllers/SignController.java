@@ -11,16 +11,17 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin()
 @RequestMapping("/sign")
 public class SignController {
-    @PostMapping("/signup")
+    @GetMapping("/signup")
     boolean signUp(@RequestParam("userName") String userName,
                    @RequestParam("password") String password) throws IOException, ParseException {
         ISignUp user = new Sign();
         user.setUserName(userName);
         user.setPassword(password);
         if(!user.exists()){
+            System.out.println(("d5lt"));
             user.createUserFolders();
             return true;
         }
